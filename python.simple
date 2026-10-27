@@ -1,0 +1,25 @@
+import socket
+
+target_ip = input("Enter the IP: ")
+port = int(input("Enter the port to check: "))
+
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.settimeout(2)  
+try:
+   
+    result = s.connect_ex((target_ip, port))
+    
+  
+    if result == 0:
+        print(f"[+] Port {port} is open on {target_ip}")
+    else:
+        print(f"[-] Port {port} is closed on {target_ip}")
+        
+except socket.gaierror:
+    print("[-] Xatolik: IP-manzil topilmadi yoki noto'g'ri kiritildi.")
+except socket.error:
+    print("[-] Serverga ulanib bo'lmadi.")
+finally:
+   
+    s.close()
